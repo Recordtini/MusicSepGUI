@@ -287,6 +287,14 @@
     "config_name": "deverb_bs_roformer_8_256dim_8depth.yaml",
     "checkpoint_name": "deverb_bs_roformer_8_256dim_8depth.ckpt" 
   },
+    "Mel-Band-Roformer-Inst (by unwa)": {
+    "SORT": "Instrumental",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-Inst/resolve/main/config_melbandroformer_inst.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-Inst/resolve/main/melband_roformer_inst_v1.ckpt",
+    "config_name": "config_melbandroformer_inst.yaml",
+    "checkpoint_name": "melband_roformer_inst_v1.ckpt" 
+  },
   "BS-RoformerLargev1 (by unwa)": {
     "SORT": "Vocals",
     "model_type": "bs_roformer",
