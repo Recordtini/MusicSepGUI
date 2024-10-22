@@ -1,5 +1,2 @@
-tkinter
-pyyaml
-torch
-subprocess32;python_version<"3.5"
-json
+PyYAML==6.0
+torch==2.0.1
