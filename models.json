@@ -97,14 +97,14 @@
     "config_name": "model_mel_band_roformer_denoise.yaml",
     "checkpoint_name": "denoise_mel_band_roformer_aufr33_aggr_sdr_27.9768.ckpt"
   },
-  "Apollo LQ MP3 restoration (by JusperLee)": {
+  "OTHER-Apollo LQ MP3 restoration (by JusperLee)": {
     "model_type": "apollo",
     "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/refs/heads/main/configs/config_apollo.yaml",
     "checkpoint_url": "https://huggingface.co/JusperLee/Apollo/resolve/main/pytorch_model.bin",
     "config_name": "config_apollo.yaml",
     "checkpoint_name": "pytorch_model.bin"
   },
-  "MelBand Roformer Aspiration (by SUC-DriverOld)": {
+  "OTHER-MelBand Roformer Aspiration (by SUC-DriverOld)": {
     "model_type": "mel_band_roformer",
     "config_url": "https://huggingface.co/Sucial/Aspiration_Mel_Band_Roformer/raw/main/config_aspiration_mel_band_roformer.yaml",
     "checkpoint_url": "https://huggingface.co/Sucial/Aspiration_Mel_Band_Roformer/raw/main/aspiration_mel_band_roformer_sdr_18.9845.ckpt",
