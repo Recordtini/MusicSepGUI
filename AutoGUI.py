@@ -246,13 +246,14 @@ class MusicSeparationGUI:
         if os.path.exists(file_path):
             self.status.set(f"File '{filename}' already exists.")
             self.master.update()
-            return file_path
+            return file_path # If the file exists, just return the path 
 
+        # --- Only try to download if the file does NOT exist ---
         try:
             self.status.set(f"Downloading '{filename}'...")
             self.master.update()
             download_url_to_file(url, file_path)
-            self.status.set(f"File '{filename}' downloaded successfully")
+            self.status.set(f"File '{filename}' downloaded successfully.")
             self.master.update()
             return file_path
         except Exception as e:
