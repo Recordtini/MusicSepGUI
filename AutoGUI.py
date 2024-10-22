@@ -130,7 +130,7 @@ class MusicSeparationGUI:
 
         # Extract instrumental
         self.extract_instrumental = tk.BooleanVar(value=self.config.get('extract_instrumental', True))
-        ttk.Checkbutton(options_frame, text="Extract Instrumental", variable=self.extract_instrumental).grid(column=0, row=0, sticky=tk.W, columnspan=2)
+        ttk.Checkbutton(options_frame, text="Extract extra stem", variable=self.extract_instrumental).grid(column=0, row=0, sticky=tk.W, columnspan=2)
 
         # Export format
         ttk.Label(options_frame, text="Export Format:").grid(column=0, row=1, sticky=tk.W)
