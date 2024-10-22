@@ -1,1 +1,240 @@
-
+{
+  "VOCALS-MelBand-Roformer (by KimberleyJSN)": {
+    "model_type": "mel_band_roformer",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/KimberleyJensen/config_vocals_mel_band_roformer_kj.yaml",
+    "checkpoint_url": "https://huggingface.co/KimberleyJSN/melbandroformer/resolve/main/MelBandRoformer.ckpt",
+    "config_name": "config_vocals_mel_band_roformer_kj.yaml",
+    "checkpoint_name": "MelBandRoformer.ckpt"
+  },
+  "VOCALS-InstVocHQ": {
+    "model_type": "mdx23c",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/config_vocals_mdx23c.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.0/model_vocals_mdx23c_sdr_10.17.ckpt",
+    "config_name": "config_vocals_mdx23c.yaml",
+    "checkpoint_name": "model_vocals_mdx23c_sdr_10.17.ckpt"
+  },
+  "VOCALS-BS-Roformer_1297 (by viperx)": {
+    "model_type": "bs_roformer",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/viperx/model_bs_roformer_ep_317_sdr_12.9755.yaml",
+    "checkpoint_url": "https://github.com/TRvlvr/model_repo/releases/download/all_public_uvr_models/model_bs_roformer_ep_317_sdr_12.9755.ckpt",
+    "config_name": "model_bs_roformer_ep_317_sdr_12.9755.yaml",
+    "checkpoint_name": "model_bs_roformer_ep_317_sdr_12.9755.ckpt"
+  },
+  "VOCALS-BS-Roformer_1296 (by viperx)": {
+    "model_type": "bs_roformer",
+    "config_url": "https://raw.githubusercontent.com/TRvlvr/application_data/main/mdx_model_data/mdx_c_configs/model_bs_roformer_ep_368_sdr_12.9628.yaml",
+    "checkpoint_url": "https://github.com/TRvlvr/model_repo/releases/download/all_public_uvr_models/model_bs_roformer_ep_368_sdr_12.9628.ckpt",
+    "config_name": "model_bs_roformer_ep_368_sdr_12.9628.yaml",
+    "checkpoint_name": "model_bs_roformer_ep_368_sdr_12.9628.ckpt"
+  },
+  "KARAOKE-MelBand-Roformer (by aufr33 & viperx)": {
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/jarredou/aufr33-viperx-karaoke-melroformer-model/resolve/main/config_mel_band_roformer_karaoke.yaml",
+    "checkpoint_url": "https://huggingface.co/jarredou/aufr33-viperx-karaoke-melroformer-model/resolve/main/mel_band_roformer_karaoke_aufr33_viperx_sdr_10.1956.ckpt",
+    "config_name": "config_mel_band_roformer_karaoke.yaml",
+    "checkpoint_name": "mel_band_roformer_karaoke_aufr33_viperx_sdr_10.1956.ckpt"
+  },
+  "OTHER-BS-Roformer_1053 (by viperx)": {
+    "model_type": "bs_roformer",
+    "config_url": "https://raw.githubusercontent.com/TRvlvr/application_data/main/mdx_model_data/mdx_c_configs/model_bs_roformer_ep_937_sdr_10.5309.yaml",
+    "checkpoint_url": "https://github.com/TRvlvr/model_repo/releases/download/all_public_uvr_models/model_bs_roformer_ep_937_sdr_10.5309.ckpt",
+    "config_name": "model_bs_roformer_ep_937_sdr_10.5309.yaml",
+    "checkpoint_name": "model_bs_roformer_ep_937_sdr_10.5309.ckpt"
+  },
+  "4STEMS-SCNet_MUSDB18 (by starrytong)": {
+    "model_type": "scnet",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v.1.0.6/config_musdb18_scnet.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v.1.0.6/scnet_checkpoint_musdb18.ckpt",
+    "config_name": "config_musdb18_scnet.yaml",
+    "checkpoint_name": "scnet_checkpoint_musdb18.ckpt"
+  },
+  "CROWD-REMOVAL-MelBand-Roformer (by aufr33)": {
+    "model_type": "mel_band_roformer",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v.1.0.4/model_mel_band_roformer_crowd.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v.1.0.4/mel_band_roformer_crowd_aufr33_viperx_sdr_8.7144.ckpt",
+    "config_name": "model_mel_band_roformer_crowd.yaml",
+    "checkpoint_name": "mel_band_roformer_crowd_aufr33_viperx_sdr_8.7144.ckpt"
+  },
+  "VOCALS-VitLarge23 (by ZFTurbo)": {
+    "model_type": "segm_models",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.0/config_vocals_segm_models.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.0/model_vocals_segm_models_sdr_9.77.ckpt",
+    "config_name": "config_vocals_segm_models.yaml",
+    "checkpoint_name": "model_vocals_segm_models_sdr_9.77.ckpt"
+  },
+  "OTHER-CINEMATIC-BandIt_Plus (by kwatcharasupat)": {
+    "model_type": "bandit",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v.1.0.3/config_dnr_bandit_bsrnn_multi_mus64.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v.1.0.3/model_bandit_plus_dnr_sdr_11.47.chpt",
+    "config_name": "config_dnr_bandit_bsrnn_multi_mus64.yaml",
+    "checkpoint_name": "model_bandit_plus_dnr_sdr_11.47.chpt"
+  },
+  "DRUMSEP-MDX23C_DrumSep_6stem (by aufr33 & jarredou)": {
+    "model_type": "mdx23c",
+    "config_url": "https://github.com/jarredou/models/releases/download/aufr33-jarredou_MDX23C_DrumSep_model_v0.1/aufr33-jarredou_DrumSep_model_mdx23c_ep_141_sdr_10.8059.yaml",
+    "checkpoint_url": "https://github.com/jarredou/models/releases/download/aufr33-jarredou_MDX23C_DrumSep_model_v0.1/aufr33-jarredou_DrumSep_model_mdx23c_ep_141_sdr_10.8059.ckpt",
+    "config_name": "aufr33-jarredou_DrumSep_model_mdx23c_ep_141_sdr_10.8059.yaml",
+    "checkpoint_name": "aufr33-jarredou_DrumSep_model_mdx23c_ep_141_sdr_10.8059.ckpt"
+  },
+  "DE-REVERB-MDX23C (by aufr33 & jarredou)": {
+    "model_type": "mdx23c",
+    "config_url": "https://huggingface.co/jarredou/aufr33_jarredou_MDXv3_DeReverb/resolve/main/config_dereverb_mdx23c.yaml",
+    "checkpoint_url": "https://huggingface.co/jarredou/aufr33_jarredou_MDXv3_DeReverb/resolve/main/dereverb_mdx23c_sdr_6.9096.ckpt",
+    "config_name": "config_dereverb_mdx23c.yaml",
+    "checkpoint_name": "dereverb_mdx23c_sdr_6.9096.ckpt"
+  },
+  "DENOISE-MelBand-Roformer-1 (by aufr33)": {
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/jarredou/aufr33_MelBand_Denoise/resolve/main/model_mel_band_roformer_denoise.yaml",
+    "checkpoint_url": "https://huggingface.co/jarredou/aufr33_MelBand_Denoise/resolve/main/denoise_mel_band_roformer_aufr33_sdr_27.9959.ckpt",
+    "config_name": "model_mel_band_roformer_denoise.yaml",
+    "checkpoint_name": "denoise_mel_band_roformer_aufr33_sdr_27.9959.ckpt"
+  },
+  "DENOISE-MelBand-Roformer-2 (by aufr33)": {
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/jarredou/aufr33_MelBand_Denoise/resolve/main/model_mel_band_roformer_denoise.yaml",
+    "checkpoint_url": "https://huggingface.co/jarredou/aufr33_MelBand_Denoise/resolve/main/denoise_mel_band_roformer_aufr33_aggr_sdr_27.9768.ckpt",
+    "config_name": "model_mel_band_roformer_denoise.yaml",
+    "checkpoint_name": "denoise_mel_band_roformer_aufr33_aggr_sdr_27.9768.ckpt"
+  },
+  "Apollo LQ MP3 restoration (by JusperLee)": {
+    "model_type": "apollo",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/refs/heads/main/configs/config_apollo.yaml",
+    "checkpoint_url": "https://huggingface.co/JusperLee/Apollo/resolve/main/pytorch_model.bin",
+    "config_name": "config_apollo.yaml",
+    "checkpoint_name": "pytorch_model.bin"
+  },
+  "MelBand Roformer Aspiration (by SUC-DriverOld)": {
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/Sucial/Aspiration_Mel_Band_Roformer/raw/main/config_aspiration_mel_band_roformer.yaml",
+    "checkpoint_url": "https://huggingface.co/Sucial/Aspiration_Mel_Band_Roformer/raw/main/aspiration_mel_band_roformer_sdr_18.9845.ckpt",
+    "config_name": "config_aspiration_mel_band_roformer.yaml",
+    "checkpoint_name": "aspiration_mel_band_roformer_sdr_18.9845.ckpt"
+  },
+  "VOCALS-HTDemucs4 (MVSep finetuned)": {
+    "model_type": "htdemucs",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/config_vocals_htdemucs.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.0/model_vocals_htdemucs_sdr_8.78.ckpt",
+    "config_name": "config_vocals_htdemucs.yaml",
+    "checkpoint_name": "model_vocals_htdemucs_sdr_8.78.ckpt"
+  },
+  "VOCALS-Swin Upernet": {
+    "model_type": "swin_upernet",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.2/config_vocals_swin_upernet.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.2/model_swin_upernet_ep_56_sdr_10.6703.ckpt",
+    "config_name": "config_vocals_swin_upernet.yaml",
+    "checkpoint_name": "model_swin_upernet_ep_56_sdr_10.6703.ckpt"
+  },
+  "VOCALS-MelBand-Roformer (by viperx)": {
+    "model_type": "mel_band_roformer",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/viperx/model_mel_band_roformer_ep_3005_sdr_11.4360.yaml",
+    "checkpoint_url": "https://github.com/TRvlvr/model_repo/releases/download/all_public_uvr_models/model_mel_band_roformer_ep_3005_sdr_11.4360.ckpt",
+    "config_name": "model_mel_band_roformer_ep_3005_sdr_11.4360.yaml",
+    "checkpoint_name": "model_mel_band_roformer_ep_3005_sdr_11.4360.ckpt"
+  },
+  "VOCALS-Mel-Band-Roformer-Big-Beta4 (by Unwa)": {
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-big/raw/main/config_melbandroformer_big_beta4.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-big/resolve/main/melband_roformer_big_beta4.ckpt?download=true",
+    "config_name": "config_melbandroformer_big_beta4.yaml",
+    "checkpoint_name": "melband_roformer_big_beta4.ckpt"
+  },
+  "DRUMS-HTDemucs4 FT Drums": {
+    "model_type": "htdemucs",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/config_musdb18_htdemucs.yaml",
+    "checkpoint_url": "https://dl.fbaipublicfiles.com/demucs/hybrid_transformer/f7e0c4bc-ba3fe64a.th",
+    "config_name": "config_musdb18_htdemucs.yaml",
+    "checkpoint_name": "f7e0c4bc-ba3fe64a.th"
+  },
+  "BASS-HTDemucs4 FT Bass": {
+    "model_type": "htdemucs",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/config_musdb18_htdemucs.yaml",
+    "checkpoint_url": "https://dl.fbaipublicfiles.com/demucs/hybrid_transformer/d12395a8-e57c48e6.th",
+    "config_name": "config_musdb18_htdemucs.yaml",
+    "checkpoint_name": "d12395a8-e57c48e6.th"
+  },
+  "OTHER-HTDemucs4 FT Other": {
+    "model_type": "htdemucs",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/config_musdb18_htdemucs.yaml",
+    "checkpoint_url": "https://dl.fbaipublicfiles.com/demucs/hybrid_transformer/92cfc3b6-ef3bcb9c.th",
+    "config_name": "config_musdb18_htdemucs.yaml",
+    "checkpoint_name": "92cfc3b6-ef3bcb9c.th"
+  },
+  "VOCALS-HTDemucs4 FT Vocals (Official repository)": {
+    "model_type": "htdemucs",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/config_musdb18_htdemucs.yaml",
+    "checkpoint_url": "https://dl.fbaipublicfiles.com/demucs/hybrid_transformer/04573f0d-f3cf25b2.th",
+    "config_name": "config_musdb18_htdemucs.yaml",
+    "checkpoint_name": "04573f0d-f3cf25b2.th"
+  },
+  "DE-REVERB-MelBand-Roformer (by anvuew)": {
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/anvuew/dereverb_mel_band_roformer/resolve/main/dereverb_mel_band_roformer_anvuew.yaml",
+    "checkpoint_url": "https://huggingface.co/anvuew/dereverb_mel_band_roformer/resolve/main/dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt",
+    "config_name": "dereverb_mel_band_roformer_anvuew.yaml",
+    "checkpoint_name": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt"
+  },
+  "4STEMS-MDX23C": {
+    "model_type": "mdx23c",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.1/config_musdb18_mdx23c.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.1/model_mdx23c_ep_168_sdr_7.0207.ckpt",
+    "config_name": "config_musdb18_mdx23c.yaml",
+    "checkpoint_name": "model_mdx23c_ep_168_sdr_7.0207.ckpt"
+  },
+  "4STEMS-HTDemucs4": {
+    "model_type": "demucs",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/config_musdb18_htdemucs.yaml",
+    "checkpoint_url": "https://dl.fbaipublicfiles.com/demucs/hybrid_transformer/955717e8-8726e21a.th",
+    "config_name": "config_musdb18_htdemucs.yaml",
+    "checkpoint_name": "955717e8-8726e21a.th"
+  },
+  "6STEMS-HTDemucs4 (6 stems)": {
+    "model_type": "demucs",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/config_htdemucs_6stems.yaml",
+    "checkpoint_url": "https://dl.fbaipublicfiles.com/demucs/hybrid_transformer/5c90dfd2-34c22ccb.th",
+    "config_name": "config_htdemucs_6stems.yaml",
+    "checkpoint_name": "5c90dfd2-34c22ccb.th"
+  },
+  "4STEMS-Demucs3 mmi": {
+    "model_type": "demucs",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/config_musdb18_demucs3_mmi.yaml",
+    "checkpoint_url": "https://dl.fbaipublicfiles.com/demucs/hybrid_transformer/75fc33f5-1941ce65.th",
+    "config_name": "config_musdb18_demucs3_mmi.yaml",
+    "checkpoint_name": "75fc33f5-1941ce65.th"
+  },
+  "4STEMS-DrumSep htdemucs (by inagoy)": {
+    "model_type": "demucs",
+    "config_url": "https://raw.githubusercontent.com/ZFTurbo/Music-Source-Separation-Training/main/configs/config_drumsep.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.5/model_drumsep.th",
+    "config_name": "config_drumsep.yaml",
+    "checkpoint_name": "model_drumsep.th"
+  },
+  "4STEMS-SCNet": {
+    "model_type": "scnet",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v.1.0.6/config_musdb18_scnet.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v.1.0.6/scnet_checkpoint_musdb18.ckpt",
+    "config_name": "config_musdb18_scnet.yaml",
+    "checkpoint_name": "scnet_checkpoint_musdb18.ckpt"
+  },
+  "4STEMS-SCNet Large": {
+    "model_type": "scnet",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.8/config_musdb18_scnet_large.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.8/model_scnet_sdr_9.3244.ckpt",
+    "config_name": "config_musdb18_scnet_large.yaml",
+    "checkpoint_name": "model_scnet_sdr_9.3244.ckpt"
+  },
+  "4STEMS-SCNet Large (by starrytong)": {
+    "model_type": "scnet",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.9/config_musdb18_scnet_large_starrytong.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.9/SCNet-large_starrytong_fixed.ckpt",
+    "config_name": "config_musdb18_scnet_large_starrytong.yaml",
+    "checkpoint_name": "SCNet-large_starrytong_fixed.ckpt"
+  },
+  "4STEMS-TS BS Mamba2": {
+    "model_type": "mel_band_roformer",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.9/config_musdb18_bs_mamba2.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.9/model_bs_mamba2_ep_11_sdr_6.8723.ckpt",
+    "config_name": "config_musdb18_bs_mamba2.yaml",
+    "checkpoint_name": "model_bs_mamba2_ep_11_sdr_6.8723.ckpt"
+  }
+}
