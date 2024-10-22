@@ -1,2 +1,2 @@
 # MusicSepGUI
-GUI for Music-Source-Separation-Training
+GUI for Music-Source-Separation-Training https://github.com/ZFTurbo/Music-Source-Separation-Training/ based on the Colab by jarredou https://github.com/jarredou/Music-Source-Separation-Training-Colab-Inference/tree/main
