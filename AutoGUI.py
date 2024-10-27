@@ -31,28 +31,7 @@ class MusicSeparationGUI:
         self.create_model_section()
         self.create_options_section()
         self.create_action_section()
-        
-        # Create the main frame
-        self.main_frame = ttk.Frame(master, padding="10")
-        self.main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
-        master.columnconfigure(0, weight=1)
-        master.rowconfigure(0, weight=1)
 
-        # Create sections
-        self.create_io_section()
-        self.create_model_section()
-        self.create_options_section()
-        self.create_action_section()
-        
-        # Input/Output folders
-        self.create_io_section()
-
-        # Model selection
-        self.create_model_section()
-
-        # Processing options
-        self.create_options_section()
-        
     def create_io_section(self):
         io_frame = ttk.LabelFrame(self.main_frame, text="Input/Output", padding="10")
         io_frame.grid(column=0, row=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), padx=5, pady=5)
@@ -69,7 +48,11 @@ class MusicSeparationGUI:
         self.output_folder = tk.StringVar(value=self.config.get('output_folder', ''))
         ttk.Entry(io_frame, width=50, textvariable=self.output_folder).grid(column=1, row=1, sticky=(tk.W, tk.E), padx=5)
         ttk.Button(io_frame, text="Browse", command=self.browse_output).grid(column=2, row=1)
-        
+
+        # Model Folder Sort checkbox
+        self.model_folder_sort = tk.BooleanVar(value=self.config.get('model_folder_sort', False))
+        ttk.Checkbutton(io_frame, text="Organize Output Per Model", variable=self.model_folder_sort).grid(column=0, row=2, sticky=tk.W, columnspan=2)
+
     def create_model_section(self):
         model_frame = ttk.LabelFrame(self.main_frame, text="Model Selection", padding="10")
         model_frame.grid(column=0, row=1, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), padx=5, pady=5)
@@ -80,14 +63,12 @@ class MusicSeparationGUI:
         ttk.Label(model_frame, text="Model Type:").grid(column=0, row=0, sticky=tk.W)
         self.model_type = tk.StringVar(value=self.config.get('model_type', 'VOCALS'))
 
-        # Get unique SORT categories from model_info
         self.model_type_options = sorted(set(model['SORT'] for model in self.model_info.values()))
-
         self.model_type_combo = ttk.Combobox(model_frame, textvariable=self.model_type, 
                                            values=self.model_type_options, width=30)
         self.model_type_combo.grid(column=1, row=0, sticky=(tk.W, tk.E), padx=5)
         self.model_type_combo.bind("<<ComboboxSelected>>", self.update_model_list)
-        
+
         # Specific Model Selection
         ttk.Label(model_frame, text="Specific Model:").grid(column=0, row=1, sticky=tk.NW)
         self.model = tk.StringVar(value=self.config.get('model', ''))
@@ -101,28 +82,7 @@ class MusicSeparationGUI:
         ttk.Button(model_frame, text="Update Models", command=self.update_models_from_github).grid(column=1, row=2, pady=(5, 0))
 
         self.update_model_list()
-        
-    def update_model_list(self, event=None):
-        selected_type = self.model_type.get()
-        self.model_list.delete(0, tk.END)  # Clear the current list
 
-        # Filter and sort models by name
-        filtered_models = [
-            model_name for model_name, model_data in self.model_info.items()
-            if model_data.get('SORT') == selected_type
-        ]
-        filtered_models.sort()  # Sort alphabetically
-
-        # Insert models into the Listbox
-        for model_name in filtered_models:
-            self.model_list.insert(tk.END, model_name)
-
-        # Select the first model by default, if available
-        if self.model_list.size() > 0:
-            self.model_list.selection_set(0)
-            self.model_list.see(0)
-
-                
     def create_options_section(self):
         options_frame = ttk.LabelFrame(self.main_frame, text="Processing Options", padding="10")
         options_frame.grid(column=0, row=2, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), padx=5, pady=5)
@@ -130,7 +90,7 @@ class MusicSeparationGUI:
 
         # Extract instrumental
         self.extract_instrumental = tk.BooleanVar(value=self.config.get('extract_instrumental', True))
-        ttk.Checkbutton(options_frame, text="Extract extra stem", variable=self.extract_instrumental).grid(column=0, row=0, sticky=tk.W, columnspan=2)
+        ttk.Checkbutton(options_frame, text="Extract other stem", variable=self.extract_instrumental).grid(column=0, row=0, sticky=tk.W, columnspan=2)
 
         # Export format
         ttk.Label(options_frame, text="Export Format:").grid(column=0, row=1, sticky=tk.W)
@@ -150,7 +110,7 @@ class MusicSeparationGUI:
         ttk.Label(options_frame, text="Chunk Size:").grid(column=0, row=4, sticky=tk.W)
         self.chunk_size = tk.IntVar(value=self.config.get('chunk_size', 352800))
         ttk.Combobox(options_frame, textvariable=self.chunk_size, values=[352800, 485100]).grid(column=1, row=4, sticky=(tk.W, tk.E))
-        
+
     def create_action_section(self):
         action_frame = ttk.Frame(self.main_frame, padding="10")
         action_frame.grid(column=0, row=3, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), padx=5, pady=5)
@@ -163,38 +123,32 @@ class MusicSeparationGUI:
         self.status = tk.StringVar(value="Ready")
         ttk.Label(action_frame, textvariable=self.status).grid(column=0, row=1)
 
-        # Import font module from tkinter
-        import tkinter.font as tkFont 
-
-        # Create smaller hyperlink font
-        hyperlink_font = tkFont.Font(underline=True, size=8) # Set size to 8 
-
         # Credit label with hyperlink (added below status)
         credit_label = ttk.Label(action_frame, text="GUI made by Sifted Sand Records", 
-                                  cursor="hand2", font=hyperlink_font, foreground="blue")
+                                  cursor="hand2", font=("TkDefaultFont", 8, "underline"), foreground="blue")
         credit_label.grid(column=0, row=2, pady=(5, 0))
         credit_label.bind("<Button-1>", lambda e: webbrowser.open_new("https://lnk.bio/siftedsand"))
-        
+
     def load_config(self):
         try:
             with open(self.config_file, 'r') as f:
                 self.config = json.load(f)
         except FileNotFoundError:
-            self.config = {}  
-            
+            self.config = {}
+
     def load_models(self):
         try:
             with open(self.models_file, 'r') as f:
                 self.model_info = json.load(f)
         except FileNotFoundError:
-            self.model_info = {}  
+            self.model_info = {}
 
     def save_config(self):
         self.config['input_folder'] = self.input_folder.get()
         self.config['output_folder'] = self.output_folder.get()
         self.config['model_type'] = self.model_type.get()
         self.config['model'] = self.model.get()
-        
+        self.config['model_folder_sort'] = self.model_folder_sort.get()  # Save the checkbox state
         self.config['extract_instrumental'] = self.extract_instrumental.get()
         self.config['export_format'] = self.export_format.get()
         self.config['use_tta'] = self.use_tta.get()
@@ -206,22 +160,17 @@ class MusicSeparationGUI:
 
     def update_model_list(self, event=None):
         selected_type = self.model_type.get()
-        self.model_list.delete(0, tk.END)  # Clear the current list
+        self.model_list.delete(0, tk.END) 
 
-        # Filter models by the selected type
         filtered_models = [
             model_name for model_name, model_data in self.model_info.items()
             if model_data.get('SORT') == selected_type
         ]
-
-        # Case-insensitive alphabetical sort
         filtered_models.sort(key=lambda x: x.lower())
 
-        # Insert models into the Listbox
         for model_name in filtered_models:
             self.model_list.insert(tk.END, model_name)
 
-        # Select the first model by default, if available
         if self.model_list.size() > 0:
             self.model_list.selection_set(0)
             self.model_list.see(0)
@@ -230,13 +179,13 @@ class MusicSeparationGUI:
         folder = filedialog.askdirectory()
         if folder:
             self.input_folder.set(folder)
-            self.save_config()  
+            self.save_config()
 
     def browse_output(self):
         folder = filedialog.askdirectory()
         if folder:
             self.output_folder.set(folder)
-            self.save_config()  
+            self.save_config()
 
     def download_file(self, url, filename):
         path = 'ckpts'
@@ -246,14 +195,13 @@ class MusicSeparationGUI:
         if os.path.exists(file_path):
             self.status.set(f"File '{filename}' already exists.")
             self.master.update()
-            return file_path # If the file exists, just return the path 
+            return file_path
 
-        # --- Only try to download if the file does NOT exist ---
         try:
             self.status.set(f"Downloading '{filename}'...")
             self.master.update()
             download_url_to_file(url, file_path)
-            self.status.set(f"File '{filename}' downloaded successfully.")
+            self.status.set(f"File '{filename}' downloaded successfully")
             self.master.update()
             return file_path
         except Exception as e:
@@ -264,7 +212,7 @@ class MusicSeparationGUI:
     def modify_yaml(self, yaml_path):
         if not yaml_path.endswith(('.yaml', '.yml')):
             print(f"Skipping non-YAML file: {yaml_path}")
-            return 
+            return
 
         with open(yaml_path, 'r') as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
@@ -292,6 +240,12 @@ class MusicSeparationGUI:
 
         self.modify_yaml(config_path)
 
+        # Construct the output directory path
+        output_dir = self.output_folder.get()
+        if self.model_folder_sort.get():  # If "Model Folder Sort" is checked
+            output_dir = os.path.join(output_dir, selected_model)  # Add the model name as a subfolder
+            os.makedirs(output_dir, exist_ok=True)  # Create the subfolder if it doesn't exist
+
         cmd = [
             sys.executable,
             "inference.py",
@@ -299,7 +253,7 @@ class MusicSeparationGUI:
             "--config_path", config_path,
             "--start_check_point", checkpoint_path,
             "--input_folder", self.input_folder.get(),
-            "--store_dir", self.output_folder.get()
+            "--store_dir", output_dir  # Use the potentially modified output directory
         ]
 
         if self.extract_instrumental.get():
@@ -321,7 +275,7 @@ class MusicSeparationGUI:
             self.status.set("An error occurred during separation.")
             messagebox.showerror("Error", "An error occurred during separation.")
 
-        self.save_config() 
+        self.save_config()
 
     def update_models_from_github(self):
         models_url = "https://raw.githubusercontent.com/SiftedSand/MusicSepGUI/refs/heads/main/models.json"
@@ -329,12 +283,12 @@ class MusicSeparationGUI:
             self.status.set("Updating models...")
             self.master.update()
             download_url_to_file(models_url, self.models_file)
-            self.load_models()  # Reload model info from updated file
-            self.update_model_list()  # Refresh the model listbox
+            self.load_models() 
+            self.update_model_list() 
             self.status.set("Models updated successfully!")
         except Exception as e:
             self.status.set(f"Error updating models: {e}")
 
 root = tk.Tk()
 gui = MusicSeparationGUI(root)
-root.mainloop() 
+root.mainloop()
