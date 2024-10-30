@@ -302,5 +302,13 @@
     "checkpoint_url": "https://huggingface.co/jarredou/unwa_bs_roformer/resolve/main/BS-Roformer_LargeV1.ckpt",
     "config_name": "config_bsrofoL.yaml",
     "checkpoint_name": "BS-Roformer_LargeV1.ckpt"
+  },
+  "Mel-Band-Roformer-InstVoc-Duality (by unwa)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-InstVoc-Duality/raw/main/config_melbandroformer_instvoc_duality.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-InstVoc-Duality/resolve/main/melband_roformer_instvoc_duality_v1.ckpt",
+    "config_name": "config_melbandroformer_instvoc_duality.yaml",
+    "checkpoint_name": "melband_roformer_instvoc_duality_v1.ckpt"
   }
 }
