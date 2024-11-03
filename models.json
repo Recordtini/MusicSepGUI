@@ -119,6 +119,14 @@
     "config_name": "config_apollo.yaml",
     "checkpoint_name": "pytorch_model.bin"
   },
+    "Apollo Vocal Enhancer V2 WIP (by lew)": {
+    "SORT": "Other",
+    "model_type": "apollo",
+    "config_url": "https://file.garden/ZDvN3R-J4RNQd5n7/config_apollo_vocal_v2.yaml",
+    "checkpoint_url": "https://file.garden/ZDvN3R-J4RNQd5n7/apollo_model_v2.ckpt",
+    "config_name": "config_apollo_vocal_v2.yaml",
+    "checkpoint_name": "apollo_model_v2.ckpt"
+  },
   "MelBand Roformer Aspiration (by SUC-DriverOld)": {
     "SORT": "Other",
     "model_type": "mel_band_roformer",
