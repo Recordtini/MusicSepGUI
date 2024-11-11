@@ -327,12 +327,20 @@
     "config_name": "config_melbandroformer_instvoc_duality.yaml",
     "checkpoint_name": "melband_roformer_instvoc_duality_v1.ckpt"
   },
-  "MelBand Roformer SYHFT (by SYH99999)": {
+  "MelBand Roformer SYHFT V3 (by SYH99999)": {
     "SORT": "Vocals",
     "model_type": "mel_band_roformer",
     "config_url": "https://huggingface.co/SYH99999/MelBandRoformerSYHFT/resolve/main/config_vocals_mel_band_roformer_ft.yaml",
-    "checkpoint_url": "https://huggingface.co/SYH99999/MelBandRoformerSYHFT/resolve/main/MelBandRoformerSYHFT.ckpt",
+    "checkpoint_url": "https://huggingface.co/SYH99999/MelBandRoformerSYHFTV3Epsilon/resolve/main/MelBandRoformerSYHFTV3Epsilon.ckpt",
     "config_name": "config_vocals_mel_band_roformer_ft.yaml",
-    "checkpoint_name": "MelBandRoformerSYHFT.ckpt"
+    "checkpoint_name": "MelBandRoformerSYHFTV3Epsilon.ckpt"
+  },
+    "MelBand Roformer Big SYHFT V1 Fast (by SYH99999)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/SYH99999/MelBandRoformerBigSYHFTV1Fast/resolve/main/config.yaml",
+    "checkpoint_url": "https://huggingface.co/SYH99999/MelBandRoformerBigSYHFTV1Fast/resolve/main/MelBandRoformerBigSYHFTV1.ckpt",
+    "config_name": "config.yaml",
+    "checkpoint_name": "MelBandRoformerBigSYHFTV1.ckpt"
   }
 }
