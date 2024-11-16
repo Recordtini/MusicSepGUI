@@ -325,7 +325,7 @@
     "config_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-InstVoc-Duality/raw/main/config_melbandroformer_instvoc_duality.yaml",
     "checkpoint_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-InstVoc-Duality/resolve/main/melband_roformer_instvoc_duality_v2.ckpt",
     "config_name": "config_melbandroformer_instvoc_duality.yaml",
-    "checkpoint_name": "melband_roformer_instvoc_duality_v1.ckpt"
+    "checkpoint_name": "melband_roformer_instvoc_duality_v2.ckpt"
   },
   "MelBand Roformer SYHFT V3 (by SYH99999)": {
     "SORT": "Vocals",
