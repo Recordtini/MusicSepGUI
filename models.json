@@ -311,6 +311,14 @@
     "config_name": "config_melbandroformer_inst_v2.yaml",
     "checkpoint_name": "melband_roformer_inst_v2.ckpt" 
   },
+    "Mel-Band-Roformer-Inst v1e(by unwa)": {
+    "SORT": "Instrumental",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-Inst/resolve/main/config_melbandroformer_inst.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-Inst/resolve/main/inst_v1e.ckpt",
+    "config_name": "config_melbandroformer_inst.yaml",
+    "checkpoint_name": "inst_v1e.ckpt" 
+  },
   "BS-RoformerLargev1 (by unwa)": {
     "SORT": "Vocals",
     "model_type": "bs_roformer",
