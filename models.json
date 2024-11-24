@@ -343,6 +343,14 @@
     "config_name": "config_melbandroformer_instvoc_duality.yaml",
     "checkpoint_name": "melband_roformer_instvox_duality_v2.ckpt"
   },
+    "Mel-Band-Roformer-Big-Beta5e (by unwa)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-big/resolve/main/big_beta5e.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-big/resolve/main/big_beta5e.ckpt",
+    "config_name": "big_beta5e.yaml",
+    "checkpoint_name": "big_beta5e.ckpt"
+  },
   "MelBand Roformer SYHFT V3 (by SYH99999)": {
     "SORT": "Vocals",
     "model_type": "mel_band_roformer",
