@@ -311,20 +311,14 @@ class MusicSeparationGUI:
         try:
             if not self._download_model_files(selected_model):
                 return  # _download_model_files handles error messages
-
-            temp_folders = self._prepare_input_files(input_folder)
-            if not temp_folders:
-                return # Error already handled in _prepare_input_files
             
-            for temp_folder in temp_folders:
-                cmd = self._build_separation_command(selected_model, output_dir, temp_folder)
+            # No need for temp folders in a straight separation
+            cmd = self._build_separation_command(selected_model, output_dir, input_folder)
 
-                logging.info(f"Separation command: {cmd}")  # Log the full command
+            logging.info(f"Separation command: {cmd}")  # Log the full command
 
-                # Run separation directly (no threading)
-                self._run_separation(cmd, selected_model)
-            
-            self._cleanup_temp_folders(temp_folders, output_dir)
+            # Run separation directly (no threading)
+            self._run_separation(cmd, selected_model)
 
         except Exception as e:
             logging.exception(f"An unexpected error occurred during separation: {e}")  # Log the full traceback
