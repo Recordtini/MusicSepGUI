@@ -351,6 +351,30 @@
     "config_name": "big_beta5e.yaml",
     "checkpoint_name": "big_beta5e.ckpt"
   },
+    "MelBand Roformer Kim FT (by unwa)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/pcunwa/Kim-Mel-Band-Roformer-FT/resolve/main/config_kimmel_unwa_ft.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/Kim-Mel-Band-Roformer-FT/resolve/main/kimmel_unwa_ft.ckpt",
+    "config_name": "config_kimmel_unwa_ft.yaml",
+    "checkpoint_name": "kimmel_unwa_ft.ckpt"
+  },
+    "Dereverb-Echo_Mel_Band_Roformer (by SUC-DriverOld)": {
+    "SORT": "De-Reverb",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/Sucial/Dereverb-Echo_Mel_Band_Roformer/resolve/main/config_dereverb-echo_mel_band_roformer.yaml",
+    "checkpoint_url": "https://huggingface.co/Sucial/Dereverb-Echo_Mel_Band_Roformer/resolve/main/dereverb-echo_mel_band_roformer_sdr_10.0169.ckpt",
+    "config_name": "config_dereverb-echo_mel_band_roformer.yaml",
+    "checkpoint_name": "dereverb-echo_mel_band_roformer_sdr_10.0169.ckpt"
+  },
+    "Chorus_Male_Female_BS_Roformer EP 267 (by SUC-DriverOld)": {
+    "SORT": "Other",
+    "model_type": "bs_roformer",
+    "config_url": "https://huggingface.co/Sucial/Chorus_Male_Female_BS_Roformer/resolve/main/config_chorus_male_female_bs_roformer.yaml",
+    "checkpoint_url": "https://huggingface.co/Sucial/Chorus_Male_Female_BS_Roformer/resolve/main/model_chorus_bs_roformer_ep_267_sdr_24.1275.ckpt",
+    "config_name": "config_chorus_male_female_bs_roformer.yaml",
+    "checkpoint_name": "model_chorus_bs_roformer_ep_267_sdr_24.1275.ckpt"
+  },
   "MelBand Roformer SYHFT V3 (by SYH99999)": {
     "SORT": "Vocals",
     "model_type": "mel_band_roformer",
