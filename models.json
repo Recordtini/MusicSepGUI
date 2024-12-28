@@ -375,6 +375,22 @@
     "config_name": "config_chorus_male_female_bs_roformer.yaml",
     "checkpoint_name": "model_chorus_bs_roformer_ep_267_sdr_24.1275.ckpt"
   },
+  "MelBand Roformer Instrumental (by becruily)": {
+    "SORT": "Instrumental",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/becruily/mel-band-roformer-instrumental/resolve/main/config_instrumental_becruily.yaml",
+    "checkpoint_url": "https://huggingface.co/becruily/mel-band-roformer-instrumental/resolve/main/mel_band_roformer_instrumental_becruily.ckpt",
+    "config_name": "config_instrumental_becruily.yaml",
+    "checkpoint_name": "mel_band_roformer_instrumental_becruily.ckpt"
+  },
+  "MelBand Roformer Vocals (by becruily)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/becruily/mel-band-roformer-vocals/resolve/main/config_vocals_becruily.yaml",
+    "checkpoint_url": "https://huggingface.co/becruily/mel-band-roformer-vocals/resolve/main/mel_band_roformer_vocals_becruily.ckpt",
+    "config_name": "config_vocals_becruily.yaml",
+    "checkpoint_name": "mel_band_roformer_vocals_becruily.ckpt"
+  },
   "MelBand Roformer SYHFT V3 (by SYH99999)": {
     "SORT": "Vocals",
     "model_type": "mel_band_roformer",
