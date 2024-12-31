@@ -13,6 +13,7 @@ import re
 import tempfile
 import time
 import shutil
+import datetime
 
 #logging.basicConfig(filename='music_separation.log', level=logging.DEBUG,
 #                    format='%(asctime)s - %(levelname)s - %(message)s')
@@ -24,8 +25,13 @@ class MusicSeparationGUI:
 
         self.config_file = 'config.json'
         self.models_file = 'models.json'
+
+        # Load config (creates an empty one if it doesn't exist)
         self.load_config()
         self.load_models()
+
+        # Modify inference.py if needed
+        self.check_and_modify_inference_py()
 
         # Create the main frame
         self.main_frame = ttk.Frame(master, padding="10")
@@ -41,7 +47,54 @@ class MusicSeparationGUI:
 
         # Multi-model window (initialized as None)
         self.multi_model_window = None
+        
+    def check_and_modify_inference_py(self):
+        inference_py_path = "inference.py"
+        if not os.path.exists(inference_py_path):
+            return  # Do nothing if inference.py doesn't exist
 
+        # Get modification time BEFORE reading the file content
+        last_modified_time = os.path.getmtime(inference_py_path)
+
+        with open(inference_py_path, "r") as f:
+            inference_code = f.read()
+
+        # Check for "new" code pattern BEFORE checking timestamps
+        if "output_dir = os.path.join(args.store_dir, file_name)" in inference_code:
+            # Check if we have a record of the last modification in config.json
+            if 'last_inference_py_edit' in self.config:
+                last_edit_time = self.config['last_inference_py_edit']
+                # If modification times are different, assume external modification
+                if last_modified_time != last_edit_time:
+                    self.modify_inference_py(inference_py_path, inference_code)
+            else:
+                # If no record exists, modify the file (first run)
+                self.modify_inference_py(inference_py_path, inference_code)
+
+    def modify_inference_py(self, inference_py_path, inference_code):
+        # Replace with the "old" code pattern
+        inference_code = inference_code.replace(
+            "output_dir = os.path.join(args.store_dir, file_name)\n        os.makedirs(output_dir, exist_ok=True)",
+            ""  # Remove the lines that create subfolders
+        )
+        inference_code = inference_code.replace(
+            "output_path = os.path.join(output_dir, f\"{instr}.{codec}\")",
+            "output_path = os.path.join(args.store_dir, f\"{file_name}_{instr}.{codec}\")"  # Modify output path
+        )
+
+        with open(inference_py_path, "w") as f:
+            f.write(inference_code)
+
+        # Record the modification time in config.json (only timestamp update)
+        self.update_last_inference_py_edit()
+
+        print("Modified inference.py to use the old output path structure.")
+
+    def update_last_inference_py_edit(self):
+        # Update only the timestamp part of the config
+        self.config['last_inference_py_edit'] = os.path.getmtime("inference.py")
+        self.save_timestamp()
+        
     def create_io_section(self):
         io_frame = ttk.LabelFrame(self.main_frame, text="Input/Output", padding="10")
         io_frame.grid(column=0, row=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), padx=5, pady=5)
@@ -205,7 +258,13 @@ class MusicSeparationGUI:
 
         with open(self.config_file, 'w') as f:
             json.dump(self.config, f, indent=4)
-
+    
+    def save_timestamp(self):
+        # Save only the timestamp without GUI data
+        temp_config = {'last_inference_py_edit': self.config.get('last_inference_py_edit', None)}
+        with open(self.config_file, 'w') as f:
+            json.dump(temp_config, f, indent=4)
+            
     def update_model_list(self, event=None):
         selected_type = self.model_type.get()
         self.model_list.delete(0, tk.END) 
