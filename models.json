@@ -407,6 +407,14 @@
     "config_name": "config_chorus_male_female_bs_roformer.yaml",
     "checkpoint_name": "bs_roformer_male_female_by_aufr33_sdr_7.2889.ckpt"
   },
+    "BS-RoFormer Vocal Test (by gabox)": {
+    "SORT": "Vocals",
+    "model_type": "bs_roformer",
+    "config_url": "https://huggingface.co/GaboxR67/BSRoformerVocTest/resolve/main/voc_gaboxBSroformer.yaml",
+    "checkpoint_url": "https://huggingface.co/GaboxR67/BSRoformerVocTest/resolve/main/voc_gaboxBSR.ckpt",
+    "config_name": "voc_gaboxBSroformer.yaml",
+    "checkpoint_name": "voc_gaboxBSR.ckpt"
+  },
     "MelBand Roformer Big SYHFT V1 Fast (by SYH99999)": {
     "SORT": "Vocals",
     "model_type": "mel_band_roformer",
