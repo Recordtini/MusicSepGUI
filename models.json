@@ -207,6 +207,22 @@
     "config_name": "dereverb_mel_band_roformer_anvuew.yaml",
     "checkpoint_name": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt"
   },
+    "MelBand-Roformer Less Agressive (by anvuew)": {
+    "SORT": "De-Reverb",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/anvuew/dereverb_mel_band_roformer/resolve/main/dereverb_mel_band_roformer_anvuew.yaml",
+    "checkpoint_url": "https://huggingface.co/anvuew/dereverb_mel_band_roformer/resolve/main/dereverb_mel_band_roformer_less_aggressive_anvuew_sdr_18.8050.ckpt",
+    "config_name": "dereverb_mel_band_roformer_anvuew.yaml",
+    "checkpoint_name": "dereverb_mel_band_roformer_less_aggressive_anvuew_sdr_18.8050.ckpt"
+  },
+    "MelBand-Roformer Mono (by anvuew)": {
+    "SORT": "De-Reverb",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/anvuew/dereverb_mel_band_roformer/resolve/main/dereverb_mel_band_roformer_anvuew.yaml",
+    "checkpoint_url": "https://huggingface.co/anvuew/dereverb_mel_band_roformer/resolve/main/dereverb_mel_band_roformer_mono_anvuew_sdr_20.4029.ckpt",
+    "config_name": "dereverb_mel_band_roformer_anvuew.yaml",
+    "checkpoint_name": "dereverb_mel_band_roformer_mono_anvuew_sdr_20.4029.ckpt"
+  },
   "MDX23C": {
     "SORT": "4 Stems",
     "model_type": "mdx23c",
@@ -431,12 +447,36 @@
     "config_name": "voc_gaboxBSroformer.yaml",
     "checkpoint_name": "voc_gaboxBSR.ckpt"
   },
+    "SCNet XL": {
+    "SORT": "4 Stems",
+    "model_type": "scnet",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.13/config_musdb18_scnet_xl.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.13/model_scnet_ep_54_sdr_9.8051.ckpt",
+    "config_name": "config_musdb18_scnet_xl.yaml",
+    "checkpoint_name": "model_scnet_ep_54_sdr_9.8051.ckpt"
+  },
+  "BS Roformer": {
+    "SORT": "4 Stems",
+    "model_type": "bs_roformer",
+    "config_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.12/config_bs_roformer_384_8_2_485100.yaml",
+    "checkpoint_url": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.12/model_bs_roformer_ep_17_sdr_9.6568.ckpt",
+    "config_name": "config_bs_roformer_384_8_2_485100.yaml",
+    "checkpoint_name": "model_bs_roformer_ep_17_sdr_9.6568.ckpt"
+  },
     "MelBand Roformer Big SYHFT V1 Fast (by SYH99999)": {
     "SORT": "Vocals",
     "model_type": "mel_band_roformer",
     "config_url": "https://huggingface.co/SYH99999/MelBandRoformerBigSYHFTV1Fast/resolve/main/config.yaml",
     "checkpoint_url": "https://huggingface.co/SYH99999/MelBandRoformerBigSYHFTV1Fast/resolve/main/MelBandRoformerBigSYHFTV1.ckpt",
     "config_name": "config.yaml",
+    "checkpoint_name": "MelBandRoformerBigSYHFTV1.ckpt"
+  },
+    "MelBand Roformer 4 Stem FT Large (by SYH99999)": {
+    "SORT": "4 Stems",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/RareSirMix/AIModelRehosting/resolve/main/MelBandRoformer4StemFTLarge.yaml",
+    "checkpoint_url": "https://huggingface.co/SYH99999/MelBandRoformer4StemFTLarge/resolve/main/MelBandRoformer4StemFTLarge.ckpt",
+    "config_name": "MelBandRoformer4StemFTLarge.yaml",
     "checkpoint_name": "MelBandRoformerBigSYHFTV1.ckpt"
   }
 }
