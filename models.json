@@ -423,7 +423,7 @@
     "config_name": "config_vocals_becruily.yaml",
     "checkpoint_name": "mel_band_roformer_vocals_becruily.ckpt"
   },
-    "Big Beta 6 (by unwa)": {
+    "MelBand-Roformer-Big-Beta-6 (by unwa)": {
     "SORT": "Vocals",
     "model_type": "mel_band_roformer",
     "config_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-big/blob/main/big_beta6.yaml",
