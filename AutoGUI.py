@@ -455,8 +455,6 @@ class MusicSeparationGUI:
         if export_format.startswith('flac'):
             cmd.append("--flac_file")
             cmd.append(f"--pcm_type={export_format.split()[1]}")
-        elif export_format == "wav FLOAT":
-            cmd.append("--wav_file")
 
         if self.use_tta.get():
             cmd.append("--use_tta")
