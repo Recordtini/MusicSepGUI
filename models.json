@@ -506,7 +506,7 @@
   "voc_fv4 (by Gabox)": {
     "SORT": "Vocals",
     "model_type": "mel_band_roformer",
-    "config_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/vocals/voc_gabox.yaml,
+    "config_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/vocals/voc_gabox.yaml",
     "checkpoint_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/vocals/voc_fv4.ckpt",
     "config_name": "voc_gabox.yaml",
     "checkpoint_name": "voc_fv4.ckpt"
