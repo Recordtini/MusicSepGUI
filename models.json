@@ -383,7 +383,7 @@
     "config_name": "config_kimmel_unwa_ft.yaml",
     "checkpoint_name": "kimmel_unwa_ft2.ckpt"
   },
-      "MelBand Roformer Kim FT V2 Bleedless (by unwa)": {
+    "MelBand Roformer Kim FT V2 Bleedless (by unwa)": {
     "SORT": "Vocals",
     "model_type": "mel_band_roformer",
     "config_url": "https://huggingface.co/pcunwa/Kim-Mel-Band-Roformer-FT/resolve/main/config_kimmel_unwa_ft.yaml",
@@ -478,6 +478,102 @@
     "checkpoint_url": "https://huggingface.co/SYH99999/MelBandRoformerBigSYHFTV1Fast/resolve/main/MelBandRoformerBigSYHFTV1.ckpt",
     "config_name": "config.yaml",
     "checkpoint_name": "MelBandRoformerBigSYHFTV1.ckpt"
+  },
+    "Denoise Debleed (by Gabox)": {
+    "SORT": "De-Noise",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/inst_gabox.yaml",
+    "checkpoint_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/denoisedebleed.ckpt",
+    "config_name": "inst_gabox.yaml",
+    "checkpoint_name": "denoisedebleed.ckpt"
+  },
+    "FT3 preview vocal model (by Unwa)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/pcunwa/Kim-Mel-Band-Roformer-FT/resolve/main/config_kimmel_unwa_ft.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/Kim-Mel-Band-Roformer-FT/resolve/main/kimmel_unwa_ft3_prev.ckpt",
+    "config_name": "config_kimmel_unwa_ft.yaml",
+    "checkpoint_name": "kimmel_unwa_ft3_prev.ckpt"
+  },
+  "FullnessVocalModel (by Amane)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/Aname-Tommy/MelBandRoformers/resolve/main/config.yaml",
+    "checkpoint_url": "https://huggingface.co/Aname-Tommy/MelBandRoformers/resolve/main/FullnessVocalModel.ckpt",
+    "config_name": "config.yaml",
+    "checkpoint_name": "FullnessVocalModel.ckpt"
+  },
+  "voc_fv4 (by Gabox)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/vocals/voc_gabox.yaml,
+    "checkpoint_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/vocals/voc_fv4.ckpt",
+    "config_name": "voc_gabox.yaml",
+    "checkpoint_name": "voc_fv4.ckpt"
+  },
+  "voc_Fv3 (by Gabox)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/inst_gabox.yaml",
+    "checkpoint_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/vocals/voc_Fv3.ckpt",
+    "config_name": "inst_gabox.yaml",
+    "checkpoint_name": "voc_Fv3.ckpt"
+  },
+  "Karaoke (by Gabox)": {
+    "SORT": "Karaoke",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://github.com/deton24/Colab-for-new-MDX_UVR_models/releases/download/v1.0.0/config_mel_band_roformer_karaoke.yaml",
+    "checkpoint_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/experimental/kar_gabox.ckpt",
+    "config_name": "config_mel_band_roformer_karaoke.yaml",
+    "checkpoint_name": "kar_gabox.ckpt"
+  },
+  "inst_gaboxBv3 instrumental model (by Gabox)": {
+    "SORT": "Instrumental",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/inst_gabox.yaml",
+    "checkpoint_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/inst_gaboxBv3.ckpt",
+    "config_name": "inst_gabox.yaml",
+    "checkpoint_name": "inst_gaboxBv3.ckpt"
+  },
+  "Inst V7 model (by Gabox)": {
+    "SORT": "Instrumental",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/inst_gabox.yaml",
+    "checkpoint_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/Inst_GaboxV7.ckpt",
+    "config_name": "inst_gabox.yaml",
+    "checkpoint_name": "Inst_GaboxV7.ckpt"
+  },
+  "Inst_GaboxFVX model (by Gabox)": {
+    "SORT": "Instrumental",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/inst_gabox.yaml",
+    "checkpoint_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/Inst_GaboxFVX.ckpt",
+    "config_name": "inst_gabox.yaml",
+    "checkpoint_name": "Inst_GaboxFVX.ckpt"
+  },
+  "INSTV7N model (by Gabox)": {
+    "SORT": "Instrumental",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/inst_gabox.yaml",
+    "checkpoint_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/instrumental/INSTV7N.ckpt",
+    "config_name": "inst_gabox.yaml",
+    "checkpoint_name": "INSTV7N.ckpt"
+  },
+  "400MB experimental BS-Roformer inst model (by Unwa)": {
+    "SORT": "Instrumental",
+    "model_type": "bs_roformer",
+    "config_url": "https://huggingface.co/pcunwa/BS-Roformer-Inst-EXP-Value-Residual/resolve/main/BS_Inst_EXP_VRL.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/BS-Roformer-Inst-EXP-Value-Residual/resolve/main/BS_Inst_EXP_VRL.ckpt",
+    "config_name": "config_bsroformer_inst_exp_vrl_400m.yaml",
+    "checkpoint_name": "bs_roformer_inst_exp_vrl_400m.ckpt"
+  },
+    "BS-Roformer model (by Amane)": {
+    "SORT": "4 Stems",
+    "model_type": "bs_roformer",
+    "config_url": "https://huggingface.co/RareSirMix/AIModelRehosting/resolve/main/Amane4stem_bs_roformer.yaml",
+    "checkpoint_url": "https://huggingface.co/RareSirMix/AIModelRehosting/resolve/main/Amane4stem_bs_roformer.ckpt",
+    "config_name": "Amane4stem_bs_roformer.yaml",
+    "checkpoint_name": "Amane4stem_bs_roformer.ckpt"
   },
     "MelBand Roformer 4 Stem FT Large (by SYH99999)": {
     "SORT": "4 Stems",
