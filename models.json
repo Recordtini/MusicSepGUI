@@ -575,6 +575,14 @@
     "config_name": "Amane4stem_bs_roformer.yaml",
     "checkpoint_name": "Amane4stem_bs_roformer.ckpt"
   },
+    "Mel-Band-Roformer-Big-Beta6x (by unwa)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-big/resolve/main/big_beta6x.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/Mel-Band-Roformer-big/resolve/main/big_beta6x.ckpt",
+    "config_name": "big_beta6x.yaml",
+    "checkpoint_name": "big_beta6x.ckpt"
+  },
     "MelBand Roformer 4 Stem FT Large (by SYH99999)": {
     "SORT": "4 Stems",
     "model_type": "mel_band_roformer",
