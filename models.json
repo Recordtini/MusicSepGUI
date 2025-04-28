@@ -598,5 +598,61 @@
     "checkpoint_url": "https://huggingface.co/SYH99999/MelBandRoformer4StemFTLarge/resolve/main/MelBandRoformer4StemFTLarge.ckpt",
     "config_name": "MelBandRoformer4StemFTLarge.yaml",
     "checkpoint_name": "MelBandRoformerBigSYHFTV1.ckpt"
+  },
+    "MelBand Roformer Aspiration Less Aggressive (by Sucial)": {
+    "SORT": "Other",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/config_aspiration_mel_band_roformer.yaml",
+    "checkpoint_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/aspiration_mel_band_roformer_less_aggr_sdr_18.1201.ckpt",
+    "config_name": "config_aspiration_mel_band_roformer.yaml",
+    "checkpoint_name": "aspiration_mel_band_roformer_less_aggr_sdr_18.1201.ckpt"
+  },
+  "MelBand Roformer Bleed Suppressor V1 (by unwa-97chris)": {
+    "SORT": "Other",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/config_mel_band_roformer_bleed_suppressor_v1.yaml",
+    "checkpoint_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/mel_band_roformer_bleed_suppressor_v1.ckpt",
+    "config_name": "config_mel_band_roformer_bleed_suppressor_v1.yaml",
+    "checkpoint_name": "mel_band_roformer_bleed_suppressor_v1.ckpt"
+  },
+  "MelBand Roformer De-Reverb Big (by Sucial)": {
+    "SORT": "De-Reverb",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/config_dereverb_echo_mel_band_roformer_v2.yaml",
+    "checkpoint_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/dereverb_big_mbr_ep_362.ckpt",
+    "config_name": "config_dereverb_echo_mel_band_roformer_v2.yaml",
+    "checkpoint_name": "dereverb_big_mbr_ep_362.ckpt"
+  },
+  "MelBand Roformer De-Reverb Super Big (by Sucial)": {
+    "SORT": "De-Reverb",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/config_dereverb_echo_mel_band_roformer_v2.yaml",
+    "checkpoint_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/dereverb_super_big_mbr_ep_346.ckpt",
+    "config_name": "config_dereverb_echo_mel_band_roformer_v2.yaml",
+    "checkpoint_name": "dereverb_super_big_mbr_ep_346.ckpt"
+  },
+  "MelBand Roformer De-Reverb-Echo V2 (by Sucial)": {
+    "SORT": "De-Reverb",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/config_dereverb-echo_mel_band_roformer_sdr_13.4843_v2.yaml",
+    "checkpoint_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/dereverb-echo_mel_band_roformer_sdr_13.4843_v2.ckpt",
+    "config_name": "config_dereverb-echo_mel_band_roformer_sdr_13.4843_v2.yaml",
+    "checkpoint_name": "dereverb-echo_mel_band_roformer_sdr_13.4843_v2.ckpt"
+  },
+  "MelBand Roformer De-Reverb-Echo Fused (by Sucial)": {
+    "SORT": "De-Reverb",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/config_dereverb_echo_mel_band_roformer_v2.yaml",
+    "checkpoint_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/dereverb_echo_mbr_fused.ckpt",
+    "config_name": "config_dereverb_echo_mel_band_roformer_v2.yaml",
+    "checkpoint_name": "dereverb_echo_mbr_fused.ckpt"
+  },
+  "MelBand Roformer Karaoke (by becruily)": {
+    "SORT": "Karaoke",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/config_mel_band_roformer_karaoke_becruily.yaml",
+    "checkpoint_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/mel_band_roformer_karaoke_becruily.ckpt",
+    "config_name": "config_mel_band_roformer_karaoke_becruily.yaml",
+    "checkpoint_name": "mel_band_roformer_karaoke_becruily.ckpt"
   }
 }
