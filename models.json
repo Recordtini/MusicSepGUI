@@ -591,6 +591,30 @@
     "config_name": "big_beta6x.yaml",
     "checkpoint_name": "big_beta6x.ckpt"
   },
+    "BS-Roformer-Revive 1 (by unwa)": {
+    "SORT": "Vocals",
+    "model_type": "bs_roformer",
+    "config_url": "https://huggingface.co/pcunwa/BS-Roformer-Revive/resolve/main/bs_roformer_revive.ckpt",
+    "checkpoint_url": "https://huggingface.co/pcunwa/BS-Roformer-Revive/resolve/main/bs_roformer_revive3e.ckpt",
+    "config_name": "unwarevive.yaml",
+    "checkpoint_name": "bs_roformer_revive.ckpt"
+  },
+    "BS-Roformer-Revive 2 (by unwa)": {
+    "SORT": "Vocals",
+    "model_type": "bs_roformer",
+    "config_url": "https://huggingface.co/RareSirMix/AIModelRehosting/resolve/main/unwarevive.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/BS-Roformer-Revive/resolve/main/bs_roformer_revive2.ckpt",
+    "config_name": "unwarevive.yaml",
+    "checkpoint_name": "bs_roformer_revive2.ckpt"
+  },
+    "BS-Roformer-Revive 3e (by unwa)": {
+    "SORT": "Vocals",
+    "model_type": "bs_roformer",
+    "config_url": "https://huggingface.co/RareSirMix/AIModelRehosting/resolve/main/unwarevive.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/BS-Roformer-Revive/resolve/main/bs_roformer_revive3e.ckpt",
+    "config_name": "unwarevive.yaml",
+    "checkpoint_name": "bs_roformer_revive3e.ckpt"
+  },
     "MelBand Roformer 4 Stem FT Large (by SYH99999)": {
     "SORT": "4 Stems",
     "model_type": "mel_band_roformer",
