@@ -615,6 +615,14 @@
     "config_name": "unwarevive.yaml",
     "checkpoint_name": "bs_roformer_revive3e.ckpt"
   },
+    "BS-Roformer-Resurrection (by unwa)": {
+    "SORT": "Vocals",
+    "model_type": "bs_roformer",
+    "config_url": "https://huggingface.co/pcunwa/BS-Roformer-Resurrection/resolve/main/BS-Roformer-Resurrection-Config.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/BS-Roformer-Resurrection/resolve/main/BS-Roformer-Resurrection.ckpt",
+    "config_name": "BS-Roformer-Resurrection-Config.yaml",
+    "checkpoint_name": "BS-Roformer-Resurrection.ckpt"
+  },
     "MelBand Roformer 4 Stem FT Large (by SYH99999)": {
     "SORT": "4 Stems",
     "model_type": "mel_band_roformer",
