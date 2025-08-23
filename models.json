@@ -575,6 +575,14 @@
     "config_name": "config_bsroformer_inst_exp_vrl_400m.yaml",
     "checkpoint_name": "bs_roformer_inst_exp_vrl_400m.ckpt"
   },
+    "BS-Roformer-Inst-FNO (by Unwa)": {
+    "SORT": "Instrumental",
+    "model_type": "bs_roformer",
+    "config_url": "https://huggingface.co/pcunwa/BS-Roformer-Inst-FNO/resolve/main/bsrofo_fno.yaml",
+    "checkpoint_url": "https://huggingface.co/pcunwa/BS-Roformer-Inst-FNO/resolve/main/bs_roformer_fno.ckpt",
+    "config_name": "bsrofo_fno.yaml",
+    "checkpoint_name": "bs_roformer_fno.ckpt"
+  },
     "BS-Roformer model (by Amane)": {
     "SORT": "4 Stems",
     "model_type": "bs_roformer",
