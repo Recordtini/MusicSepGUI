@@ -686,5 +686,37 @@
     "checkpoint_url": "https://github.com/nomadkaraoke/python-audio-separator/releases/download/model-configs/mel_band_roformer_karaoke_becruily.ckpt",
     "config_name": "config_mel_band_roformer_karaoke_becruily.yaml",
     "checkpoint_name": "mel_band_roformer_karaoke_becruily.ckpt"
+  },
+  "MelBand-Roformer 4stem Large (by Amane)": {
+    "SORT": "4 Stems",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/Aname-Tommy/melbandroformer4stems/resolve/main/config_large.yaml",
+    "checkpoint_url": "https://huggingface.co/Aname-Tommy/melbandroformer4stems/resolve/main/mel_band_roformer_4stems_large_ver1.ckpt",
+    "config_name": "config_large.yaml",
+    "checkpoint_name": "mel_band_roformer_4stems_large_ver1.ckpt"
+  },
+  "BS-Roformer SW Fixed": {
+    "SORT": "6 Stems",
+    "model_type": "bs_roformer",
+    "config_url": "https://huggingface.co/jarredou/BS-ROFO-SW-Fixed/resolve/main/BS-Rofo-SW-Fixed.yaml",
+    "checkpoint_url": "https://huggingface.co/jarredou/BS-ROFO-SW-Fixed/resolve/main/BS-Rofo-SW-Fixed.ckpt",
+    "config_name": "BS-Rofo-SW-Fixed.yaml",
+    "checkpoint_name": "BS-Rofo-SW-Fixed.ckpt"
+  },
+  "Lead Vocal Dereverb MelBand-Roformer (by Gabox)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/karaoke/karaokegabox_1750911344.yaml",
+    "checkpoint_url": "https://huggingface.co/GaboxR67/MelBandRoformers/resolve/main/melbandroformers/experimental/Lead_VocalDereverb.ckpt",
+    "config_name": "karaokegabox_1750911344.yaml",
+    "checkpoint_name": "Lead_VocalDereverb.ckpt"
+  },
+  "MelBand-Roformer Guitar (by becruily)": {
+    "SORT": "Other",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/becruily/mel-band-roformer-guitar/resolve/main/config_guitar_becruily.yaml",
+    "checkpoint_url": "https://huggingface.co/becruily/mel-band-roformer-guitar/resolve/main/becruily_guitar.ckpt",
+    "config_name": "config_guitar_becruily.yaml",
+    "checkpoint_name": "becruily_guitar.ckpt"
   }
 }
