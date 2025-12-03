@@ -13,11 +13,10 @@ import re
 import tempfile
 import time
 import shutil
-import datetime
 
 #logging.basicConfig(filename='music_separation.log', level=logging.DEBUG,
 #                    format='%(asctime)s - %(levelname)s - %(message)s')
-                    
+
 class MusicSeparationGUI:
     def __init__(self, master):
         self.master = master
@@ -25,7 +24,6 @@ class MusicSeparationGUI:
 
         self.config_file = 'config.json'
         self.models_file = 'models.json'
-
         # Load config (creates an empty one if it doesn't exist)
         self.load_config()
         self.load_models()
@@ -47,29 +45,97 @@ class MusicSeparationGUI:
 
         # Multi-model window (initialized as None)
         self.multi_model_window = None
-        
+
     def check_and_modify_inference_py(self):
         inference_py_path = "inference.py"
         if not os.path.exists(inference_py_path):
-            return  # Do nothing if inference.py doesn't exist
+            logging.error("inference.py not found.")
+            return
 
-        # Get modification time BEFORE reading the file content
-        last_modified_time = os.path.getmtime(inference_py_path)
+        with open(inference_py_path, "r", encoding='utf-8') as f:
+            code = f.read()
 
-        with open(inference_py_path, "r") as f:
-            inference_code = f.read()
+        modified = False
 
-        # Check for "new" code pattern BEFORE checking timestamps
-        if "output_dir = os.path.join(args.store_dir, file_name)" in inference_code:
-            # Check if we have a record of the last modification in config.json
-            if 'last_inference_py_edit' in self.config:
-                last_edit_time = self.config['last_inference_py_edit']
-                # If modification times are different, assume external modification
-                if last_modified_time != last_edit_time:
-                    self.modify_inference_py(inference_py_path, inference_code)
-            else:
-                # If no record exists, modify the file (first run)
-                self.modify_inference_py(inference_py_path, inference_code)
+        # --- PATCH 1: Intercept --input_path before the parser crashes ---
+        # The standard parser doesn't know --input_path, so we steal it from sys.argv 
+        # before the parser sees it.
+        if "custom_input_path = None" not in code:
+            print("Patching inference.py: Injecting argument interceptor...")
+            
+            # We look for the start of the proc_folder function
+            target_str = "def proc_folder(dict_args):"
+            inject_str = """def proc_folder(dict_args):
+    # --- GUI PATCH START: Intercept input_path ---
+    custom_input_path = None
+    if "--input_path" in sys.argv:
+        try:
+            idx = sys.argv.index("--input_path")
+            if idx + 1 < len(sys.argv):
+                custom_input_path = sys.argv[idx + 1]
+                del sys.argv[idx:idx + 2]
+        except: pass
+    # --- GUI PATCH END ---
+"""
+            code = code.replace(target_str, inject_str)
+
+            # Re-inject the path after parsing
+            target_str_2 = "args = parse_args_inference(dict_args)"
+            inject_str_2 = """args = parse_args_inference(dict_args)
+    # --- GUI PATCH START: Restore input_path ---
+    if custom_input_path:
+        args.input_path = custom_input_path
+        if not args.input_folder:
+            args.input_folder = os.path.dirname(custom_input_path)
+    # --- GUI PATCH END ---"""
+            code = code.replace(target_str_2, inject_str_2)
+            modified = True
+
+        # --- PATCH 2: Handle Single File Logic in run_folder ---
+        # Standard code only globs a folder. We add a check for the specific file.
+        if "if getattr(args, 'input_path', None)" not in code:
+            print("Patching inference.py: Injecting single file logic...")
+            target_str = "mixture_paths = sorted(glob.glob(os.path.join(args.input_folder, '*.*')))"
+            inject_str = """if getattr(args, 'input_path', None) and os.path.isfile(args.input_path):
+        mixture_paths = [args.input_path]
+    else:
+        mixture_paths = sorted(glob.glob(os.path.join(args.input_folder, '*.*')))"""
+            code = code.replace(target_str, inject_str)
+            modified = True
+
+        # --- PATCH 3: Flat Output Directory Structure ---
+        # Standard code creates subfolders (output/TrackName/vocals.wav).
+        # We want output/TrackName_vocals.wav
+        if "output_dir = os.path.join(args.store_dir, file_name)" in code:
+            print("Patching inference.py: Flattening output directory structure...")
+            # Remove the subfolder creation
+            code = code.replace("output_dir = os.path.join(args.store_dir, file_name)", 
+                                "# output_dir = os.path.join(args.store_dir, file_name) # GUI PATCH")
+            
+            # Fix the output path construction
+            # Original looks like: output_path = os.path.join(output_dir, f"{instr}.{codec}")
+            # We change regex broadly to catch variants
+            code = code.replace('output_path = os.path.join(output_dir, f"{instr}.{codec}")', 
+                                'output_path = os.path.join(args.store_dir, f"{file_name}_{instr}.{codec}")')
+            
+            # Also fix the spectrogram output path if it exists
+            code = code.replace('output_img_path = os.path.join(output_dir, f"{instr}.jpg")',
+                                'output_img_path = os.path.join(args.store_dir, f"{file_name}_{instr}.jpg")')
+            
+            modified = True
+
+        # --- SAVE CHANGES ---
+        if modified:
+            try:
+                with open(inference_py_path, "w", encoding='utf-8') as f:
+                    f.write(code)
+                print("inference.py successfully patched.")
+                # Update timestamp to prevent re-patching loops if you use that logic
+                self.config['last_inference_py_edit'] = os.path.getmtime(inference_py_path)
+                self.save_config()
+            except Exception as e:
+                logging.error(f"Failed to write patched inference.py: {e}")
+                messagebox.showerror("Error", f"Failed to patch inference.py:\n{e}")
 
     def modify_inference_py(self, inference_py_path, inference_code):
         # Replace with the "old" code pattern
@@ -81,30 +147,34 @@ class MusicSeparationGUI:
             "output_path = os.path.join(output_dir, f\"{instr}.{codec}\")",
             "output_path = os.path.join(args.store_dir, f\"{file_name}_{instr}.{codec}\")"  # Modify output path
         )
-
         with open(inference_py_path, "w") as f:
             f.write(inference_code)
 
         # Record the modification time in config.json (only timestamp update)
         self.update_last_inference_py_edit()
-
         print("Modified inference.py to use the old output path structure.")
 
     def update_last_inference_py_edit(self):
         # Update only the timestamp part of the config
         self.config['last_inference_py_edit'] = os.path.getmtime("inference.py")
         self.save_timestamp()
-        
+
+    def save_timestamp(self):
+        # Save only the timestamp without GUI data
+        temp_config = {'last_inference_py_edit': self.config.get('last_inference_py_edit', None)}
+        with open(self.config_file, 'w') as f:
+            json.dump(temp_config, f, indent=4)
+
     def create_io_section(self):
         io_frame = ttk.LabelFrame(self.main_frame, text="Input/Output", padding="10")
         io_frame.grid(column=0, row=0, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), padx=5, pady=5)
         io_frame.columnconfigure(1, weight=1)
 
-        # Input folder
-        ttk.Label(io_frame, text="Input Folder:").grid(column=0, row=0, sticky=tk.W)
-        self.input_folder = tk.StringVar(value=self.config.get('input_folder', ''))
-        ttk.Entry(io_frame, width=50, textvariable=self.input_folder).grid(column=1, row=0, sticky=(tk.W, tk.E), padx=5)
-        ttk.Button(io_frame, text="Browse", command=self.browse_input).grid(column=2, row=0)
+        # Input path (now can be file or folder)
+        ttk.Label(io_frame, text="Input Path:").grid(column=0, row=0, sticky=tk.W)
+        self.input_path = tk.StringVar(value=self.config.get('input_path', '')) # Changed variable name
+        ttk.Entry(io_frame, width=50, textvariable=self.input_path).grid(column=1, row=0, sticky=(tk.W, tk.E), padx=5) # Changed variable name
+        ttk.Button(io_frame, text="Browse", command=self.browse_input_path).grid(column=2, row=0) # Changed browse function
 
         # Output folder
         ttk.Label(io_frame, text="Output Folder:").grid(column=0, row=1, sticky=tk.W)
@@ -121,7 +191,7 @@ class MusicSeparationGUI:
         model_frame.grid(column=0, row=1, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), padx=5, pady=5)
         model_frame.columnconfigure(1, weight=1)  # Allow column 1 to expand
         model_frame.rowconfigure(1, weight=1)
-        
+
         # Model Type Selection
         ttk.Label(model_frame, text="Model Type:").grid(column=0, row=0, sticky=tk.W)
         self.model_type = tk.StringVar(value=self.config.get('model_type', 'VOCALS'))
@@ -144,7 +214,7 @@ class MusicSeparationGUI:
         # Create a frame for the buttons to prevent them from expanding
         buttons_frame = ttk.Frame(model_frame)
         buttons_frame.grid(column=1, row=2, pady=(5, 0))
-        
+
         # Center the buttons within the buttons_frame
         buttons_frame.columnconfigure(0, weight=1)
         buttons_frame.columnconfigure(1, weight=1)
@@ -154,7 +224,7 @@ class MusicSeparationGUI:
 
         # Ensemble Mode Button
         ttk.Button(buttons_frame, text="Ensemble", command=self.open_ensemble_window).grid(column=1, row=0)
-        
+
         # Update Models button
         ttk.Button(model_frame, text="Update Models", command=self.update_models_from_github).grid(column=1, row=3, pady=(5, 0))
 
@@ -173,7 +243,7 @@ class MusicSeparationGUI:
         ttk.Label(options_frame, text="Export Format:").grid(column=0, row=1, sticky=tk.W)
         self.export_format = tk.StringVar(value=self.config.get('export_format', 'wav FLOAT'))
         ttk.Combobox(options_frame, textvariable=self.export_format, values=['wav FLOAT', 'flac PCM_16', 'flac PCM_24']).grid(column=1, row=1, sticky=(tk.W, tk.E))
-        
+
         # Advanced Options Frame
         advanced_frame = ttk.LabelFrame(options_frame, text="Advanced Options", padding="10")
         advanced_frame.grid(column=0, row=2, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), padx=5, pady=(10, 0)) # Add padding at the top
@@ -190,23 +260,52 @@ class MusicSeparationGUI:
         # Overlap
         ttk.Label(advanced_frame, text="Overlap:").grid(column=0, row=2, sticky=tk.W)
         self.overlap = tk.IntVar(value=self.config.get('overlap', 2))
-        self.overlap_scale = ttk.Scale(advanced_frame, from_=1, to=40, variable=self.overlap, orient=tk.HORIZONTAL, state=tk.DISABLED) # Initially disabled
-        self.overlap_scale.grid(column=1, row=2, sticky=(tk.W, tk.E))
+
+        # Use a Frame to hold the Entry and Scale
+        overlap_frame = ttk.Frame(advanced_frame)
+        overlap_frame.grid(column=1, row=2, sticky=(tk.W, tk.E))
+
+        self.overlap_entry = ttk.Entry(overlap_frame, width=5, textvariable=self.overlap, state=tk.DISABLED)
+        self.overlap_entry.pack(side=tk.LEFT, padx=(0, 5))
+
+        self.overlap_scale = ttk.Scale(overlap_frame, from_=1, to=40, variable=self.overlap, orient=tk.HORIZONTAL, state=tk.DISABLED, command=self.update_overlap_entry)
+        self.overlap_scale.pack(side=tk.LEFT, fill=tk.X, expand=True)
+
+        # Bind <Return> on Entry to update the Scale
+        self.overlap_entry.bind("<Return>", self.update_overlap_scale)
 
         # Chunk size
         ttk.Label(advanced_frame, text="Chunk Size:").grid(column=0, row=3, sticky=tk.W)
         self.chunk_size = tk.IntVar(value=self.config.get('chunk_size', 352800))
         values = [352800, 485100]
-        self.chunk_size_combo = ttk.Combobox(advanced_frame, textvariable=self.chunk_size, values=values, state=tk.DISABLED)  # Initially disabled
+        self.chunk_size_combo = ttk.Combobox(advanced_frame, textvariable=self.chunk_size, values=values, state=tk.DISABLED)
         self.chunk_size_combo.grid(column=1, row=3, sticky=(tk.W, tk.E))
         self.chunk_size_combo.current(values.index(self.chunk_size.get()) if self.chunk_size.get() in values else 0) # Set current value based on self.chunk_size
+
+    def update_overlap_entry(self, *args):
+        """Updates the overlap entry when the slider is moved."""
+        try:
+            value = int(self.overlap_scale.get())
+            self.overlap.set(value)
+        except ValueError:
+            pass
+
+    def update_overlap_scale(self, event=None):
+        """Updates the slider when the overlap entry is changed."""
+        try:
+            value = self.overlap.get()
+            if 1 <= value <= 40:
+                self.overlap_scale.set(value)
+        except (ValueError, tk.TclError):
+            pass
 
     def toggle_advanced_options(self):
         state = tk.NORMAL if not self.use_default_params.get() else tk.DISABLED
         self.tta_checkbutton.config(state=state)
-        self.overlap_scale.config(state=state)
+        self.overlap_entry.config(state=state)
+        self.overlap_scale.config(state=state)  # Enable/disable the slider too
         self.chunk_size_combo.config(state=state)
-        
+
     def create_action_section(self):
         action_frame = ttk.Frame(self.main_frame, padding="10")
         action_frame.grid(column=0, row=3, columnspan=2, sticky=(tk.W, tk.E, tk.N, tk.S), padx=5, pady=5)
@@ -245,7 +344,7 @@ class MusicSeparationGUI:
             self.model_info = {}
 
     def save_config(self):
-        self.config['input_folder'] = self.input_folder.get()
+        self.config['input_path'] = self.input_path.get() # Changed to input_path
         self.config['output_folder'] = self.output_folder.get()
         self.config['model_type'] = self.model_type.get()
         self.config['model'] = self.model.get()
@@ -255,19 +354,15 @@ class MusicSeparationGUI:
         self.config['use_tta'] = self.use_tta.get()
         self.config['overlap'] = self.overlap.get()
         self.config['chunk_size'] = self.chunk_size.get()
+        self.config['last_inference_py_edit'] = self.config.get('last_inference_py_edit') # Save the timestamp
 
         with open(self.config_file, 'w') as f:
             json.dump(self.config, f, indent=4)
-    
-    def save_timestamp(self):
-        # Save only the timestamp without GUI data
-        temp_config = {'last_inference_py_edit': self.config.get('last_inference_py_edit', None)}
-        with open(self.config_file, 'w') as f:
-            json.dump(temp_config, f, indent=4)
-            
+
+
     def update_model_list(self, event=None):
         selected_type = self.model_type.get()
-        self.model_list.delete(0, tk.END) 
+        self.model_list.delete(0, tk.END)
 
         filtered_models = [
             model_name for model_name, model_data in self.model_info.items()
@@ -283,14 +378,15 @@ class MusicSeparationGUI:
             self.model_list.selection_set(0)
             self.model_list.see(0)
 
-    def browse_input(self):
-        folder = filedialog.askdirectory()
-        if folder:
-            if not os.path.isdir(folder):
-                messagebox.showerror("Error", "Invalid input folder selected.")
+    def browse_input_path(self): # Changed function name
+        file_or_folder = filedialog.askopenfilename(filetypes=[("Audio files", "*.wav;*.flac;*.mp3;*.aiff;*.aif"), ("Folders", "*")]) # Allow file or folder selection
+        if file_or_folder:
+            if os.path.isfile(file_or_folder) or os.path.isdir(file_or_folder): # Check if selected path is valid
+                self.input_path.set(file_or_folder) # Changed to input_path
+                self.save_config()
+            else:
+                messagebox.showerror("Error", "Invalid input path selected.")
                 return
-            self.input_folder.set(folder)
-            self.save_config()
 
     def browse_output(self):
         folder = filedialog.askdirectory()
@@ -356,7 +452,7 @@ class MusicSeparationGUI:
             return False
 
         return True
-        
+
     def separate(self):
         selected_model = self.model_list.get(tk.ANCHOR)
         if not selected_model or selected_model not in self.model_info:
@@ -364,15 +460,15 @@ class MusicSeparationGUI:
             return
 
         logging.info(f"Starting separation with model: {selected_model}")
-        input_folder = self.input_folder.get()
+        input_path = self.input_path.get() # Changed to input_path
         output_dir = self._get_output_directory(selected_model)
 
         try:
             if not self._download_model_files(selected_model):
                 return  # _download_model_files handles error messages
-            
+
             # No need for temp folders in a straight separation
-            cmd = self._build_separation_command(selected_model, output_dir, input_folder)
+            cmd = self._build_separation_command(selected_model, output_dir, input_path) # Changed to input_path
 
             logging.info(f"Separation command: {cmd}")  # Log the full command
 
@@ -385,7 +481,7 @@ class MusicSeparationGUI:
 
         finally:
             self.save_config()
-            
+
     def _download_model_files(self, selected_model):
         info = self.model_info[selected_model]
         config_url = info['config_url']
@@ -415,7 +511,7 @@ class MusicSeparationGUI:
             os.makedirs(output_dir, exist_ok=True)
         return output_dir
 
-    def _build_separation_command(self, selected_model, output_dir, input_path):
+    def _build_separation_command(self, selected_model, output_dir, input_path): # Modified function to handle input_path
         info = self.model_info[selected_model]
 
         if not self.use_default_params.get():
@@ -432,22 +528,13 @@ class MusicSeparationGUI:
             "--config_path", config_path,
             "--start_check_point", checkpoint_path,
             "--store_dir", output_dir,
+            "--input_path", input_path,  # <--- ALWAYS use --input_path and pass input_path
         ]
 
-        # Check if the input_path is a directory or a file
-        if os.path.isdir(input_path):  # Corrected: Check before os.listdir
-            cmd.append("--input_folder")
-            cmd.append(input_path)
-        elif os.path.isfile(input_path):
-            # If it's a file, use its directory as input folder
-            cmd.append("--input_folder")
-            cmd.append(os.path.dirname(input_path))
-        else:
-            # Handle invalid input (neither file nor directory)
-            logging.error(f"Invalid input path: {input_path}")
-            return None  # Or raise an exception
-            
-        # Add other options
+        # Remove the old if/elif/else block completely
+        # No longer need to check if it's a dir or file here. inference.py handles it.
+
+        # Add other options (rest of the function remains the same)
         if self.extract_instrumental.get():
             cmd.append("--extract_instrumental")
 
@@ -455,13 +542,15 @@ class MusicSeparationGUI:
         if export_format.startswith('flac'):
             cmd.append("--flac_file")
             cmd.append(f"--pcm_type={export_format.split()[1]}")
+        elif export_format == "wav FLOAT":
+            cmd.append("--wav_file")
 
         if self.use_tta.get():
             cmd.append("--use_tta")
 
         logging.debug(f"Built command: {cmd}")
         return cmd
-        
+
     def _update_progress_from_output(self, output_line):
         # Windows: "Processing audio chunks:   7%|█████                                     | 134400/1926339 [00:00<00:02, 652215.64it/s]"
         # Linux: "Processing audio chunks:  73%|███████████████████████████████▌           | 1411200/1926339 [00:03<00:01, 416574.69it/s]"
@@ -528,7 +617,7 @@ class MusicSeparationGUI:
                 shutil.rmtree(temp_folder)
             except Exception as e:
                 logging.error(f"Error during cleanup of {temp_folder}: {e}")
-            
+
     def _run_separation(self, cmd, model_name):
         """
         Runs the separation process using the given command.
@@ -562,15 +651,15 @@ class MusicSeparationGUI:
             messagebox.showerror("Error", f"An unexpected error occurred: {e}")
         finally:
             self.master.update_idletasks()  # Update the GUI
-            
+
     def update_models_from_github(self):
         models_url = "https://raw.githubusercontent.com/SiftedSand/MusicSepGUI/refs/heads/main/models.json"
         try:
             self.status.set("Updating models...")
             self.master.update()
             download_url_to_file(models_url, self.models_file)
-            self.load_models() 
-            self.update_model_list() 
+            self.load_models()
+            self.update_model_list()
             self.status.set("Models updated successfully!")
         except Exception as e:
             self.status.set(f"Error updating models: {e}")
@@ -580,10 +669,10 @@ class MusicSeparationGUI:
             self.multi_model_window = MultiModelWindow(self)
         else:
             self.multi_model_window.master.lift()  # Bring window to the front
-            
+
         # Update the list of models in the multi-model window
         self.multi_model_window.update_model_list()
-        
+
     def open_ensemble_window(self):
         EnsembleWindow(self)
 
@@ -647,7 +736,7 @@ class MultiModelWindow:
 
         # Close Button
         ttk.Button(self.main_frame, text="Close", command=self.close_window).grid(column=0, row=4, pady=5)
-        
+
         ttk.Entry(self.main_frame, textvariable=self.filter_var).grid(column=1, row=0, sticky=(tk.W, tk.E), padx=5) # Sticky expands to fill the space in the resizable mainframe
 
         self.master.geometry("800x400") # Initial size, but user can resize
@@ -697,7 +786,7 @@ class MultiModelWindow:
                 self.order_list.insert(i + direction, model)
                 self.order_list.selection_set(i + direction)
 
-      
+
     def process_multi_model(self):
         ordered_models = self.order_list.get(0, tk.END)
         if not ordered_models:
@@ -712,7 +801,7 @@ class MultiModelWindow:
         original_model_folder_sort = self.parent.model_folder_sort.get()
         self.parent.model_folder_sort.set(True)  # Organize output per model
 
-        input_folder = self.parent.input_folder.get()
+        input_path = self.parent.input_path.get() # Changed to input_path
         output_folder = self.parent.output_folder.get()
 
         processing_mode = self.processing_mode.get()
@@ -720,7 +809,7 @@ class MultiModelWindow:
         try:
             if processing_mode == "Sequential":
                 # Sequential mode: Use temp folders and process sequentially
-                temp_folders = self.parent._prepare_input_files(input_folder)
+                temp_folders = self.parent._prepare_input_files(os.path.dirname(input_path) if os.path.isfile(input_path) else input_path) # Modified for single file input
                 if not temp_folders:
                     return  # Error already handled in _prepare_input_files
 
@@ -766,7 +855,7 @@ class MultiModelWindow:
                     current_output_folder = os.path.join(output_folder, selected_model)
                     os.makedirs(current_output_folder, exist_ok=True)
 
-                    cmd = self.parent._build_separation_command(selected_model, current_output_folder, input_folder)
+                    cmd = self.parent._build_separation_command(selected_model, current_output_folder, input_path) # Changed to input_path
                     self.parent._run_separation(cmd, selected_model)
 
             else:
@@ -780,12 +869,12 @@ class MultiModelWindow:
             return
         finally:
             self.parent.model_folder_sort.set(original_model_folder_sort)
-            self.parent.input_folder.set(input_folder)
+            self.parent.input_path.set(input_path) # Changed to input_path
             self.parent.save_config()
             separate_button.config(state=tk.NORMAL)
             multi_model_button.config(state=tk.NORMAL)
             self.close_window()
-            
+
     def close_window(self):
         self.parent.multi_model_window = None  # Allow the window to be opened again
         self.master.destroy()
@@ -842,7 +931,7 @@ class EnsembleWindow:
 
         # Close Button
         ttk.Button(button_frame, text="Close", command=self.master.destroy).grid(column=1, row=0, sticky=tk.W, padx=5)
-        
+
         self.master.geometry("700x600")
 
     def create_input_file_widgets(self, num_files):
@@ -864,7 +953,7 @@ class EnsembleWindow:
 
             # Add the Scale widget (optional - you can keep it or remove it)
             ttk.Scale(self.input_files_frame, from_=1, to=10, variable=weight_var, orient=tk.HORIZONTAL).grid(column=5, row=i, sticky=(tk.W, tk.E))
-            
+
     def browse_input_file(self, index):
         file_path = filedialog.askopenfilename(
             initialdir=self.parent.output_folder.get(),
@@ -874,7 +963,7 @@ class EnsembleWindow:
         if file_path:
             self.input_files[index].set(file_path)
             self.master.focus_set()  # Keep focus on the Ensemble window
-            
+
     def process_ensemble(self):
         ensemble_type = self.ensemble_type.get()
         output_file = self.output_file.get()
@@ -888,7 +977,7 @@ class EnsembleWindow:
         if not output_file:
             messagebox.showerror("Error", "Please specify an output file.")
             return
-        
+
         if not os.path.exists("ensemble.py"):
             messagebox.showerror("Error", "Could not find ensemble.py. Ensure it's in the correct location")
             return
@@ -916,7 +1005,7 @@ class EnsembleWindow:
         except Exception as e:
             self.parent.status.set(f"An unexpected error occurred: {e}")
             messagebox.showerror("Error", f"An unexpected error occurred:\n{e}")
-            
+
 root = tk.Tk()
 
 def on_closing():
