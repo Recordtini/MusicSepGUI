@@ -718,5 +718,13 @@
     "checkpoint_url": "https://huggingface.co/becruily/mel-band-roformer-guitar/resolve/main/becruily_guitar.ckpt",
     "config_name": "config_guitar_becruily.yaml",
     "checkpoint_name": "becruily_guitar.ckpt"
+  },
+  "MelBand-Roformer Deux (by becruily)": {
+    "SORT": "Vocals",
+    "model_type": "mel_band_roformer",
+    "config_url": "https://huggingface.co/becruily/mel-band-roformer-deux/resolve/main/config_deux_becruily.yaml",
+    "checkpoint_url": "https://huggingface.co/becruily/mel-band-roformer-deux/resolve/main/becruily_deux.ckpt",
+    "config_name": "config_deux_becruily.yaml",
+    "checkpoint_name": "becruily_deux.ckpt"
   }
 }
